@@ -39,7 +39,7 @@ return [
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Europe/Paris',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'fr',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -137,6 +137,13 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 
 		/*
+		 * EloquentOAuth
+		 * https://github.com/adamwathan/eloquent-oauth
+		 */
+
+		'AdamWathan\EloquentOAuth\EloquentOAuthServiceProvider',
+
+		/*
 		 * Application Service Providers...
 		 */
 		'App\Providers\AppServiceProvider',
@@ -193,6 +200,12 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 
+		/*
+		 * EloquentOAuth
+		 * https://github.com/adamwathan/eloquent-oauth
+		 */
+
+		'OAuth' => 'AdamWathan\EloquentOAuth\Facades\OAuth',
 	],
 
 ];
