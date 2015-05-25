@@ -27,15 +27,35 @@ Route::controllers([
  * https://github.com/adamwathan/eloquent-oauth
  */
 
-Route::get('facebook/authorize', function() {
+Route::get('oauth/facebook/authorize', function() {
 
 	return OAuth::authorize('facebook');
 });
 
-Route::get('facebook/login', function() {
+Route::get('oauth/facebook/login', function() {
 
 	try {
-		OAuth::login('facebook');
+		OAuth::login('facebook', function($user, $details) {
+			
+			//error_log( 'USER:');
+			//error_log( var_export($user,true));
+			//error_log( 'DETAILS:');
+			//error_log( var_export($details,true));
+
+			$user->name = $details->nickname ;
+			$user->email = $details->email ;
+			$user->first_name = $details->firstName ;
+			$user->last_name = $details->lastName ;
+			$user->profile_image = $details->imageUrl ;
+
+			$raw = $details->raw();
+			if( isset($raw['gender']) )
+				$user->gender = $raw['gender'];
+			if( isset($raw['locale']) )
+				$user->locale = $raw['locale'];
+			$user->save();
+
+		});
 
 	} catch (ApplicationRejectedException $e) {
 		// User rejected application
