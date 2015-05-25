@@ -10,7 +10,7 @@ return [
 			'scope' => [],
 		],
 		'google' => [
-			'id' => env('OAUTH_STRAVA_APPID'),
+			'id' => env('OAUTH_GOOGLE_APPID'),
 			'secret' => env('OAUTH_GOOGLE_SECRET'),
 			'redirect' => env('OAUTH_GOOGLE_REDIRECT'),
 			'scope' => [],
