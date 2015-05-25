@@ -1,6 +1,8 @@
 
 @section('css')
+
 	@parent
+
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
 	<link rel="stylesheet" href="//cdn.rawgit.com/ebrelsford/Leaflet.loading/v0.1.16/src/Control.Loading.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
@@ -12,6 +14,7 @@
 		}
 
 	</style>
+
 @stop
 
 
@@ -32,7 +35,9 @@
 	<script>
 	"use strict" ;
 
-	var map, markers ;
+	var map, markers,
+	defaultMapPosition = [45.936, 10.481],
+  defaultZoom = 5 ;
 
 	$(function() {
 
@@ -57,7 +62,7 @@
 			$("#alertBox").hide();
 			map.fire('dataloading');
 			var bounds = map.getBounds();
-			var url = '/api/postsFindInBBox'
+			var url = '/api/posts/find-in-bbox'
 				+ "/" + bounds.getSouthWest().lat // swLat
 				+ "/" + bounds.getSouthWest().lng // swLon=
 				+ "/" + bounds.getNorthEast().lat // neLat=
@@ -66,7 +71,7 @@
 			loadData( url );
 		});
 
-		map.setView([45.936, 10.481], 5);
+		map.setView(defaultMapPosition, defaultZoom);
 		
 	});
 

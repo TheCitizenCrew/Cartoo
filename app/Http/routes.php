@@ -19,5 +19,6 @@ Route::get('/about', 'HomeController@about');
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
-	'oauth' => 'Auth\OAuthController'
+	'oauth' => 'Auth\OAuthController',
+	'api/posts' => 'Api\PostsController'
 ]);
