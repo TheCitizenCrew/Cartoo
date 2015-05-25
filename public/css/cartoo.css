@@ -1,0 +1,7 @@
+@CHARSET "UTF-8";
+
+/* Bootstrap overload */
+
+.navbar-brand {
+	padding: 2px 15px;
+}
