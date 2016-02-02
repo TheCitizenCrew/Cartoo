@@ -1,12 +1,14 @@
 
-# Laravel's stuff
+### Laravel's stuff
 
+.env
 /vendor
 /node_modules
-.env
+#Homestead.yaml
+#Homestead.json
 
-# Eclipse's stuff
+### Eclipse's stuff
 
-.buildpath
-.project
-.settings/
+#.buildpath
+#.project
+#.settings/

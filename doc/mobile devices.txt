@@ -1,0 +1,13 @@
+
+Apple iPhone 4
+960 [h] x 640 [w] (0.6MP)
+
+Apple iPhone 5
+1136 [h] x 640 [w] (0.7MP)	
+
+Apple iPhone 6
+1334 [h] x 750 [w] (1.0MP)
+
+Nokia Lumia 730 Dual SIM
+1280 [h] x 720 [w] (0.9MP)
+
