@@ -33,11 +33,9 @@ Route::group( [
 ], function ()
 {
 	
-	Route::get( '/cartoo', function ()
-	{
-		return view( 'cartoo' );
-	} );
-
+	Route::get( '/cartoo', 'Controller@cartoo' );
+	Route::post( '/addPoi', 'PoiController@addPoi' );
+	
 	Route::group( [
 			'prefix' => 'oauth'
 	], function ()

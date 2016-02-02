@@ -1,0 +1,67 @@
+@CHARSET "UTF-8";
+
+@font-face {
+	font-family: 'Socialico';
+	src: url('/vendor/fonts/socialico/Socialico.eof');
+	src: url('/vendor/fonts/socialico/Socialico.eof?#iefix') format('embedded-opentype'),
+		url('/vendor/fonts/socialico/Socialico.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.soci {
+	display: inline-block;
+	font: normal normal normal 16px/1 Socialico;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale
+}
+.soci-lg {
+	font-size: 1.33333333em;
+	line-height: .75em;
+	vertical-align: -15%
+}
+.soci-ul {
+	padding-left: 0;
+	margin-left: 2.14285714em;
+	list-style-type: none
+}
+
+.soci-ul>li {
+	position: relative;
+	display: inline;
+}
+
+.soci-li {
+	position: absolute;
+	left: -2.14285714em;
+	width: 2.14285714em;
+	top: .14285714em;
+	text-align: center
+}
+
+.soci-li.fa-lg {
+	left: -1.85714286em
+}
+.soci-2x {
+	font-size: 2em
+}
+.soci-3x {
+	font-size: 3em
+}
+.soci-4x {
+	font-size: 4em
+}
+.soci-5x {
+	font-size: 5em
+}
+.soci-facebook:before {
+	content: "\0066"
+}
+.soci-google:before {
+	content: "\0067"
+}
+.soci-linkedin:before {
+	content: "\0069"
+}

@@ -4,11 +4,17 @@
 	<meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <title>Cartoo</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+    <title>Cartoo</title> 
+
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/vendor/jquery-upload-file/css/uploadfile.css" />
     <link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
     <link rel="stylesheet" href="/vendor/Leaflet.markercluster/dist/MarkerCluster.Default.css" media="screen" />
+    <link rel="stylesheet" href="/css/socialico.css" />
     <link rel="stylesheet" href="/css/cartoo.css" />
 </head>
 <body>
@@ -34,6 +40,7 @@
 	              	<input type="text" class="form-control" placeholder="Recherche..." id="searchText" />
 	        	    <button type="button" class="btn btn-primary btn-sm form-control" data-toggle="modal" data-target="#loginModal">Button</button>
 	    	        <button type="button" class="btn btn-primary btn-sm form-control" data-toggle="modal" data-target="#addPoiIntroModal">Ajouter un Point</button>					
+	    	        <button type="button" class="btn btn-primary btn-sm form-control" data-toggle="modal" data-target="#addPoiModal">Point</button>					
                </div>
             </form>
             <ul class="nav navbar-nav navbar-right">
@@ -78,37 +85,41 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title" id="addPoiModalLabel">Ajouter une contribution sur la carte:</h4>
 				</div>
+				<form id="addPoiForm" action="/addPoi" enctype="multipart/form-data" method="post">
 				<div class="modal-body">
-					<form id="addPoiForm" enctype="multipart/form-data">
+						{{ csrf_field() }}
 						<div class="form-group">
 							<label for="addPoiFieldName">Nom:</label>
-							<input type="text" id="addPoiFieldName" name="name" class="form-control" placeholder="Votre nom ou pseudo" minlength="2" required="required" />
+							<input type="text" id="addPoiFieldName" name="name" class="form-control" placeholder="Votre nom ou pseudo" minlength="2" required="required" value="Marcel Duchamps" />
 							<span class="help-block">Votre nom ou pseudo qui sera affiché comme auteur de la contribution.</span>
 						</div>
 						<div class="form-group">
 							<label for="addPoiFieldEmail">Email:</label>
-							<input type="email" id="addPoiFieldEmail" name="email" class="form-control" placeholder="Votre adresse email" required="required" />
+							<input type="email" id="addPoiFieldEmail" name="email" class="form-control" placeholder="Votre adresse email" required="required" value="abc@internet.net" />
 							<span class="help-block">Votre adresse email ne sera pas affichée, elle vous servira pour suivre ou modifier votre contribution.</span>							
 						</div>
 						<div class="form-group">
 							<label for="addPoiFieldText">Texte:</label>
-							<input type="text" id="addPoiFieldText" name="text" class="form-control" placeholder="Ici le contenu de votre contribution" required="required" />
+							<input type="text" id="addPoiFieldText" name="text" class="form-control" placeholder="Ici le contenu de votre contribution" required="required" value="et voilà là là" />
 							<span class="help-block">Le texte de votre contribution</span>							
 						</div>
 						<div class="form-group">
 							<label for="addPoiFieldImages">Image:</label>
-							<input type="file" id="addPoiFieldImages" name="images[]" class="form-control" placeholder="Sélectionnez un fichier sur votre appareil" />
 							<span class="help-block">Un photo pour illustrer votre contribution</span>							
+							<div id="addPoiFieldImage">Upload</div>
 						</div>
-					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-					<button type="button" class="btn btn-primary" onclick="if( cartoo.addPOI($('#addPoiForm')) ){ $('#addPoiModal').modal('hide'); } return false;" >Enregistrer</button>
+					<button type="submit" class="btn btn-primary" >Enregistrer</button>
+					<!-- button type="button" class="btn btn-primary" onclick="if( cartoo.addPOI($('#addPoiForm')) ){ $('#addPoiModal').modal('hide'); } return false;" >Enregistrer</button -->
 				</div>
+				</form>
 			</div>
     	</div>
     </div>
+
+	<!-- Login window -->
 
     <div class="modal fade" id="loginModal" role="dialog" aria-labelledby="loginModalLabel">
     	<div class="modal-dialog" role="document">
@@ -140,6 +151,9 @@
     <script src="vendor/Leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 	<script src="vendor/leaflet-hash.js"></script>
 
+    <script src="/vendor/jquery-form/jquery.form.js"></script>
+    <script src="/vendor/jquery-upload-file/js/jquery.uploadfile.min.js"></script>
+
     <script src="/javascript/CartooMap.js"></script>
     <script src="/javascript/Cartoo.js"></script>
 
@@ -148,13 +162,47 @@
     var cartoo ;
     $(function()
 	{
+		$.ajaxSetup({
+	        headers: {
+	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        }
+		});
+
 		cartoo = new Cartoo({
 			mapId: 'theMap',
 			btnId_AddPOI: 'btnAddPoi',
 			addPoiModal: 'addPoiModal'
 		});
 
+		$('#addPoiFieldImage').uploadFile({
+			url: '/upload',
+			autoSubmit: false,
+			fileName: 'image',
+			returnType: 'json',
+			acceptFiles: 'image/*',
+			multiple: false,
+			allowDuplicates: false,
+			showPreview: true,
+			previewHeight: '120px',
+			previewWidth: '120px',
+			//uploadStr: 'Sélectionnez un fichier'
+		});
+
+		$('#addPoiForm').ajaxForm({
+			success: function( data )
+			{ 
+				console.log('Submit success'); 
+				console.log( data );
+			}, 
+			error: function( data )
+			{ 
+				console.log('Submit error'); 
+				console.log( data );
+			} 
+		});
+
 	});
+
     </script>
 
 </body>
