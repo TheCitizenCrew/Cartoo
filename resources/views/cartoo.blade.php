@@ -2,10 +2,10 @@
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <title>Cartoo Spring</title> 
+    <title>Cartoo</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
     <link rel="stylesheet" href="/vendor/Leaflet.markercluster/dist/MarkerCluster.Default.css" media="screen" />
@@ -32,7 +32,7 @@
             <form class="navbar-form navbar-left" role="search">
             	<div class="form-group">
 	              	<input type="text" class="form-control" placeholder="Recherche..." id="searchText" />
-	        	    <button type="button" class="btn btn-primary btn-sm form-control" id="btnButton1">Button</button>
+	        	    <button type="button" class="btn btn-primary btn-sm form-control" data-toggle="modal" data-target="#loginModal">Button</button>
 	    	        <button type="button" class="btn btn-primary btn-sm form-control" data-toggle="modal" data-target="#addPoiIntroModal">Ajouter un Point</button>					
                </div>
             </form>
@@ -105,6 +105,27 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
 					<button type="button" class="btn btn-primary" onclick="if( cartoo.addPOI($('#addPoiForm')) ){ $('#addPoiModal').modal('hide'); } return false;" >Enregistrer</button>
+				</div>
+			</div>
+    	</div>
+    </div>
+
+    <div class="modal fade" id="loginModal" role="dialog" aria-labelledby="loginModalLabel">
+    	<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="loginModalLabel">Connectez vous</h4>
+				</div>
+				<div class="modal-body">
+			        <ul class="soci-ul">
+						<li class="soci-li"><a href="facebook/authorize"><span class="soci soci-4x soci-facebook" /></a></li>
+			        	<li class="soci-li"><a href=""><span class="soci soci-4x soci-google" /></a></li>
+			        	<li class="soci-li"><a href=""><span class="soci soci-4x soci-linkedin" /></a></li>
+			        </ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
 				</div>
 			</div>
     	</div>
