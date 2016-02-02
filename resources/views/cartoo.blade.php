@@ -119,8 +119,8 @@
 				</div>
 				<div class="modal-body">
 			        <ul class="soci-ul">
-						<li class="soci-li"><a href="facebook/authorize"><span class="soci soci-4x soci-facebook" /></a></li>
-			        	<li class="soci-li"><a href=""><span class="soci soci-4x soci-google" /></a></li>
+						<li class="soci-li"><a href="/oauth/facebook/authorize"><span class="soci soci-4x soci-facebook" /></a></li>
+			        	<li class="soci-li"><a href="/oauth/google/authorize"><span class="soci soci-4x soci-google" /></a></li>
 			        	<li class="soci-li"><a href=""><span class="soci soci-4x soci-linkedin" /></a></li>
 			        </ul>
 				</div>

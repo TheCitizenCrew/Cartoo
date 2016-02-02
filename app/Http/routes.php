@@ -37,20 +37,35 @@ Route::group( [
 	{
 		return view( 'cartoo' );
 	} );
-	
-	// Redirect to Facebook for authorization
-	Route::get( 'facebook/authorize', function ()
+
+	Route::group( [
+			'prefix' => 'oauth'
+	], function ()
 	{
-		return SocialAuth::authorize( 'facebook' );
-	} );
-	// Facebook redirects here after authorization
-	Route::get( 'facebook/login', function ()
-	{
-		// Automatically log in existing users
-		// or create a new user if necessary.
-		SocialAuth::login( 'facebook' );
-		// Current user is now available via Auth facade
-		$user = Auth::user();
-		return Redirect::intended();
-	} );
+		// Redirect to Facebook for authorization
+		Route::get( 'facebook/authorize', function ()
+		{
+			return SocialAuth::authorize( 'facebook' );
+		} );
+		// Facebook redirects here after authorization
+		Route::get( 'facebook/login', function ()
+		{
+			// Automatically log in existing users
+			// or create a new user if necessary.
+			SocialAuth::login( 'facebook' );
+			// Current user is now available via Auth facade
+			$user = Auth::user();
+			return Redirect::intended();
+		} );
+		
+	});
+
+	/*
+	Route::controllers([
+		//'auth' => 'Auth\AuthController',
+		//'password' => 'Auth\PasswordController',
+		//'oauth' => 'Auth\OAuthController',
+		//'api/posts' => 'Api\PostsController'
+	]);*/
+
 } );

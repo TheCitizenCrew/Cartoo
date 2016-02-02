@@ -7,15 +7,15 @@ return [
     'table' => 'oauth_identities',
     'providers' => [
         'facebook' => [
-            'client_id' => '12345678',
-            'client_secret' => 'y0ur53cr374ppk3y',
-            'redirect_uri' => 'https://example.com/your/facebook/redirect',
+            'client_id' => env('OAUTH_FACEBOOK_APPID', '12345678'),
+            'client_secret' => env('OAUTH_FACEBOOK_SECRET', '12345678'),
+            'redirect_uri' => env('OAUTH_FACEBOOK_REDIRECT', 'https://example.com/your/facebook/redirect'),
             'scope' => [],
         ],
         'google' => [
-            'client_id' => '12345678',
-            'client_secret' => 'y0ur53cr374ppk3y',
-            'redirect_uri' => 'https://example.com/your/google/redirect',
+            'client_id' => env('OAUTH_GOOGLE_APPID', '12345678'),
+            'client_secret' => env('OAUTH_GOOGLE_APPID', '12345678'),
+            'redirect_uri' => env('OAUTH_GOOGLE_REDIRECT', 'https://example.com/your/google/redirect'),
             'scope' => [],
         ],
         'github' => [
