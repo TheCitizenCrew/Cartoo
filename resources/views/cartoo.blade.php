@@ -181,11 +181,17 @@
 			returnType: 'json',
 			acceptFiles: 'image/*',
 			multiple: false,
+			maxFileCount: 1,
 			allowDuplicates: false,
 			showPreview: true,
 			previewHeight: '120px',
 			previewWidth: '120px',
-			//uploadStr: 'Sélectionnez un fichier'
+
+			uploadStr: 'Sélectionnez un fichier',
+			dragDropStr: 'Glissez déposez',
+			sizeErrorStr: ' est trop gros. La taille maximum est: ',
+			multiDragErrorStr: 'Le glisser/déposer de plusieurs fichiers n\'est pas permis.',
+			maxFileCountErrorStr:' est en trop. Nombre de fichiers maximum: '
 		});
 
 		$('#addPoiForm').ajaxForm({
