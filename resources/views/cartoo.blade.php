@@ -11,7 +11,6 @@
     <title>Cartoo</title> 
 
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/vendor/jquery-upload-file/css/uploadfile.css" />
     <link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
     <link rel="stylesheet" href="/vendor/Leaflet.markercluster/dist/MarkerCluster.Default.css" media="screen" />
     <link rel="stylesheet" href="/css/socialico.css" />
@@ -100,13 +99,20 @@
 						</div>
 						<div class="form-group">
 							<label for="addPoiFieldText">Texte:</label>
-							<input type="text" id="addPoiFieldText" name="text" class="form-control" placeholder="Ici le contenu de votre contribution" required="required" value="et voilà là là" />
+							<textarea type="text" id="addPoiFieldText" name="text" rows="4" class="form-control" placeholder="Ici le contenu de votre contribution" required="required" value="et voilà là là" ></textarea>
 							<span class="help-block">Le texte de votre contribution</span>							
 						</div>
 						<div class="form-group">
-							<label for="addPoiFieldImages">Image:</label>
-							<span class="help-block">Un photo pour illustrer votre contribution</span>							
-							<div id="addPoiFieldImage">Upload</div>
+							<div class="row">
+								<div class="col-md-8">
+									<label for="addPoiFieldImage">Image:</label>
+									<input type="file" id="addPoiFieldImage" name="image" class="form-control" placeholder="ajoutez une image" />
+									<span class="help-block">Un photo pour illustrer votre contribution</span>
+								</div>
+								<div class="col-md-4">
+									<img id="addPoiImagePreview" src="#" alt="your image" width="140" height="120" />
+								</div>
+							</div>
 						</div>
 				</div>
 				<div class="modal-footer">
@@ -152,7 +158,6 @@
 	<script src="vendor/leaflet-hash.js"></script>
 
     <script src="/vendor/jquery-form/jquery.form.js"></script>
-    <script src="/vendor/jquery-upload-file/js/jquery.uploadfile.min.js"></script>
 
     <script src="/javascript/CartooMap.js"></script>
     <script src="/javascript/Cartoo.js"></script>
@@ -174,24 +179,15 @@
 			addPoiModal: 'addPoiModal'
 		});
 
-		$('#addPoiFieldImage').uploadFile({
-			url: '/upload',
-			autoSubmit: false,
-			fileName: 'image',
-			returnType: 'json',
-			acceptFiles: 'image/*',
-			multiple: false,
-			maxFileCount: 1,
-			allowDuplicates: false,
-			showPreview: true,
-			previewHeight: '120px',
-			previewWidth: '120px',
-
-			uploadStr: 'Sélectionnez un fichier',
-			dragDropStr: 'Glissez déposez',
-			sizeErrorStr: ' est trop gros. La taille maximum est: ',
-			multiDragErrorStr: 'Le glisser/déposer de plusieurs fichiers n\'est pas permis.',
-			maxFileCountErrorStr:' est en trop. Nombre de fichiers maximum: '
+		$('#addPoiFieldImage').change(function(){
+			 if (this.files && this.files[0]) {
+		            var reader = new FileReader();            
+		            reader.onload = function (e) {
+		                $('#addPoiImagePreview').attr('src', e.target.result);
+		            }
+		            
+		            reader.readAsDataURL(this.files[0]);
+		        }
 		});
 
 		$('#addPoiForm').ajaxForm({
