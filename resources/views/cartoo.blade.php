@@ -99,7 +99,8 @@
 						</div>
 						<div class="form-group">
 							<label for="addPoiFieldText">Texte:</label>
-							<textarea type="text" id="addPoiFieldText" name="text" rows="4" class="form-control" placeholder="Ici le contenu de votre contribution" required="required" value="et voilà là là" ></textarea>
+							<textarea type="text" id="addPoiFieldText" name="text" rows="4" class="form-control" placeholder="Ici le contenu de votre contribution" required="required" value="et voilà là là" >Bonjour les gens
+Ici c'est noël.</textarea>
 							<span class="help-block">Le texte de votre contribution</span>							
 						</div>
 						<div class="form-group">
@@ -164,7 +165,9 @@
 
     <script>
     "use strict";
+
     var cartoo ;
+
     $(function()
 	{
 		$.ajaxSetup({
